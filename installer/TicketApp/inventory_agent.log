@@ -1,0 +1,5 @@
+2026-05-06 13:54:34,953 - INFO - Starting inventory scan...
+2026-05-06 13:54:40,435 - ERROR - Error sending inventory data: HTTPConnectionPool(host='localhost', port=5000): Max retries exceeded with url: /api/assets/bulk (Caused by NewConnectionError("HTTPConnection(host='localhost', port=5000): Failed to establish a new connection: [WinError 10061] Nenhuma conexão pôde ser feita porque a máquina de destino as recusou ativamente"))
+2026-05-06 13:54:40,534 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5001
+2026-05-06 13:54:40,535 - INFO - [33mPress CTRL+C to quit[0m

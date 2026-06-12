@@ -1,0 +1,406 @@
+Eu quero que você desenvolva um arquivo MSI com esta finalidade e todas as funcionalidades citadas abaixo, sem preder nem um parametro se quer:
+
+
+# 1. O que esse arquivo é
+
+O arquivo é um **instalador MSI do Windows**.
+
+Ele instala um **agente de monitoramento remoto chamado Lux Agent**.
+
+**Nome do produto:**
+
+```
+LuxAgent
+Versão: 2.0.1.5
+Fabricante: Aether Works
+```
+
+Esse agente é usado por sistemas **RMM (Remote Monitoring and Management)** para:
+
+* monitorar computadores
+* executar comandos remotamente
+* instalar atualizações
+* coletar métricas do sistema
+* permitir suporte remoto
+
+Ou seja:
+Ele transforma o computador em **um endpoint gerenciado remotamente pela meu servidor**.
+
+---
+
+# 2. O que o instalador faz no computador (fluxo completo)
+
+Quando você executa o MSI, o processo acontece assim:
+
+1️⃣ Verifica requisitos do sistema
+
+Ele verifica:
+
+* se o Windows é **64 bits**
+* se já existe uma versão instalada
+* se o usuário tem **permissão de administrador**
+* se o **.NET Framework 4.7.2** está instalado
+
+Se não tiver .NET:
+
+Ele baixa automaticamente.
+
+```
+https://ps.atera.com/installers/dotnet/NDP472-KB4054530-x86-x64-AllOS-ENU.exe
+```
+
+---
+
+### 2️⃣ Baixa runtime .NET adicional
+
+Ele também pode baixar runtime do .NET moderno usando:
+
+```
+https://dot.net/v1/dotnet-install.ps1
+```
+
+Executado com:
+
+```
+powershell.exe -ExecutionPolicy unrestricted
+```
+
+Instalando:
+
+```
+.NET Runtime 8.0
+```
+
+Dentro da pasta do agente:
+
+```
+[INSTALLFOLDER]\.dotnet
+```
+
+---
+
+# 3. Arquivos que ele instala
+
+O MSI instala principalmente:
+
+```
+LuxAgent.exe
+```
+
+Dentro da pasta:
+
+```
+C:\Program Files\AETHER Networks\LuxAgent\
+```
+
+---
+
+# 4. Criação de um serviço do Windows
+
+O instalador cria um **Windows Service**.
+
+Nome do serviço:
+
+```
+LuxAgentWindowsService
+```
+
+Descrição:
+
+```
+Monitoring & Management Agent by AETHER
+```
+
+Função:
+
+Esse serviço roda **em segundo plano o tempo todo**.
+
+Ele permite:
+
+* comunicação com o servidor Aether
+* execução de scripts
+* coleta de dados do sistema
+
+---
+
+# 5. Inicialização do agente
+
+Após instalar o executável, ele roda:
+
+```
+LuxAgent.exe init-settings
+```
+
+Com parâmetros:
+
+```
+--agent-id
+--account-id
+--environment
+--customer-id
+--folder-id
+```
+
+Isso registra o computador **no servidor Aether correto**.
+
+Exemplo lógico:
+
+```
+LuxAgent.exe init-settings
+   --agent-id 12345
+   --account-id 5566
+   --customer-id 9988
+```
+
+Isso vincula o PC ao painel da empresa.
+
+---
+
+# 6. Tarefa agendada (Watchdog)
+
+O instalador também mexe em uma **Scheduled Task**:
+
+```
+LuxAgentServiceWatchdog
+```
+
+Essa tarefa:
+
+* monitora o serviço
+* reinicia ele se parar
+
+Comando usado:
+
+```
+schtasks /Change /TN "LuxAgentServiceWatchdog" /Disable
+```
+
+---
+
+# 7. Criação de contadores de performance
+
+Ele instala **Performance Counters**.
+
+Esses contadores permitem ao sistema coletar:
+
+* CPU
+* memória
+* rede
+* disco
+
+para enviar ao painel do site Aether.
+
+---
+
+# 8. Comunicação com servidor remoto
+
+Depois de instalado, o agente passa a:
+
+* abrir conexão com servidores da Aether
+* enviar dados do sistema
+
+Exemplos de dados coletados:
+
+* hostname
+* IP
+* uso de CPU
+* uso de memória
+* softwares instalados
+* eventos do Windows
+* estado do antivírus
+* estado do disco
+
+---
+
+# 9. Capacidades do agente depois de instalado
+
+O computador passa a permitir remotamente:
+
+### 1️⃣ Executar scripts
+
+PowerShell
+
+CMD
+
+Bash (WSL)
+
+---
+
+### 2️⃣ Instalar software remotamente
+
+via painel Aether
+
+---
+
+### 3️⃣ Acessar remotamente
+
+Dependendo da configuração:
+
+* Splashtop
+* AnyDesk
+* remote shell
+* RealVNC Viewer
+
+---
+
+### 4️⃣ Monitoramento contínuo
+
+O agente envia dados periodicamente.
+
+---
+
+# 10. Estrutura técnica do MSI (como ele foi criado)
+
+Esse instalador foi feito usando:
+
+```
+WiX Toolset
+```
+
+Biblioteca detectada:
+
+```
+WixToolset.Dtf.WindowsInstaller.dll
+```
+
+Isso significa que ele foi compilado a partir de um projeto WiX.
+
+Exemplo de estrutura típica:
+
+```
+Product.wxs
+Service.wxs
+Files.wxs
+CustomActions.wxs
+```
+
+---
+
+# 11. Como desenvolver um instalador igual
+
+Para criar algo semelhante você faria:
+
+### 1️⃣ Criar um executável agente
+
+Exemplo:
+
+```
+Agent.exe
+```
+
+Funções:
+
+* coletar dados do sistema
+* conectar a API
+* executar comandos remotos
+
+---
+
+### 2️⃣ Transformar ele em Windows Service
+
+Exemplo C#:
+
+```
+ServiceBase
+```
+
+---
+
+### 3️⃣ Criar instalador WiX
+
+Arquivo:
+
+```
+Product.wxs
+```
+
+Exemplo:
+
+```xml
+<ServiceInstall
+  Id="AgentServiceInstaller"
+  Type="ownProcess"
+  Name="MyAgentService"
+  Start="auto"
+  ErrorControl="normal"
+/>
+```
+
+---
+
+### 4️⃣ Criar Custom Actions
+
+Para:
+
+* baixar dependências
+* inicializar agente
+* registrar servidor
+
+---
+
+### 5️⃣ Compilar MSI
+
+Com:
+
+```
+candle.exe
+light.exe
+```
+
+ou Visual Studio + WiX extension.
+
+---
+
+# 12. Resumo simples (o que ele faz)
+
+Esse arquivo:
+
+1️⃣ instala **Aether Agent**
+2️⃣ cria um **serviço do Windows**
+3️⃣ instala dependências (.NET)
+4️⃣ registra o computador em um **servidor Atera**
+5️⃣ começa a **monitorar o computador remotamente**
+
+---
+
+# 13. O que ele deve fazer no computador do usuário
+
+Se ele estiver instalado, no PC:
+
+* está registrado em um **painel Aether**
+* está enviando **dados do sistema**
+* pode receber **comandos remotos**
+
+---
+
+# 14. Como verificar se ele está ativo
+
+No Windows:
+
+### Ver serviços
+
+```
+services.msc
+```
+
+Procure:
+
+```
+AetherAgentWindowsService
+```
+
+---
+
+### Ver pasta instalada
+
+```
+C:\Program Files\AETHER Networks\
+```
+
+---
+
+### Ver processos
+
+```
+LuxAgent.exe
+```

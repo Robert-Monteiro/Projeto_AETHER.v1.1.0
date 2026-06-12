@@ -1,0 +1,14 @@
+C:\Projeto AETHER\installer\TicketApp\bin\Release\net8.0-windows\win-x64\TicketApp.exe
+C:\Projeto AETHER\installer\TicketApp\bin\Release\net8.0-windows\win-x64\TicketApp.deps.json
+C:\Projeto AETHER\installer\TicketApp\bin\Release\net8.0-windows\win-x64\TicketApp.runtimeconfig.json
+C:\Projeto AETHER\installer\TicketApp\bin\Release\net8.0-windows\win-x64\TicketApp.dll
+C:\Projeto AETHER\installer\TicketApp\bin\Release\net8.0-windows\win-x64\TicketApp.pdb
+C:\Projeto AETHER\installer\TicketApp\obj\Release\net8.0-windows\win-x64\TicketApp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projeto AETHER\installer\TicketApp\obj\Release\net8.0-windows\win-x64\TicketApp.AssemblyInfoInputs.cache
+C:\Projeto AETHER\installer\TicketApp\obj\Release\net8.0-windows\win-x64\TicketApp.AssemblyInfo.cs
+C:\Projeto AETHER\installer\TicketApp\obj\Release\net8.0-windows\win-x64\TicketApp.csproj.CoreCompileInputs.cache
+C:\Projeto AETHER\installer\TicketApp\obj\Release\net8.0-windows\win-x64\TicketApp.dll
+C:\Projeto AETHER\installer\TicketApp\obj\Release\net8.0-windows\win-x64\refint\TicketApp.dll
+C:\Projeto AETHER\installer\TicketApp\obj\Release\net8.0-windows\win-x64\TicketApp.pdb
+C:\Projeto AETHER\installer\TicketApp\obj\Release\net8.0-windows\win-x64\TicketApp.genruntimeconfig.cache
+C:\Projeto AETHER\installer\TicketApp\obj\Release\net8.0-windows\win-x64\ref\TicketApp.dll

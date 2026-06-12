@@ -1,0 +1,5 @@
+c:\Projeto AETHER\installer\TicketApp\publish\TicketApp.exe
+c:\Projeto AETHER\installer\TicketApp\publish\TicketApp.dll
+c:\Projeto AETHER\installer\TicketApp\publish\TicketApp.deps.json
+c:\Projeto AETHER\installer\TicketApp\publish\TicketApp.runtimeconfig.json
+c:\Projeto AETHER\installer\TicketApp\publish\TicketApp.pdb

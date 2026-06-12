@@ -1,0 +1,302 @@
+================================================================================
+PROJETO AETHER - ARQUITETURA E ESTRUTURA
+================================================================================
+
+DESCRIÇÃO GERAL:
+Sistema integrado de gerenciamento de chamados, inventário de ativos e 
+coleta automática de informações de máquinas para suporte técnico.
+
+================================================================================
+ESTRUTURA DE DIRETÓRIOS
+================================================================================
+
+c:\Projeto AETHER\
+├── agent/                          [Agente Python para inventário]
+│   ├── inventory_agent.py           - Script principal do agente
+│   └── requirements.txt             - Dependências Python
+│
+├── backend/                         [API REST em Node.js/Express]
+│   ├── package.json                 - Dependências e scripts npm
+│   ├── server.js                    - Servidor principal
+│   ├── config/
+│   │   └── passport.js              - Configuração de autenticação JWT
+│   ├── controllers/                 - Lógica de negócio
+│   ├── database/
+│   │   ├── connection.js            - Conexão PostgreSQL
+│   │   ├── dataStore.js             - Camada de dados (desenvolvimento)
+│   │   ├── setup.sql                - Schema inicial do banco
+│   │   └── Dispositivos/            - Dados de dispositivos
+│   ├── middleware/
+│   │   ├── errorHandler.js          - Tratamento de erros
+│   │   └── rateLimiter.js           - Limitação de requisições
+│   └── routes/
+│       ├── agent.js                 - Endpoints do agente
+│       ├── assets.js                - Endpoints de ativos
+│       ├── devices.js               - Endpoints de dispositivos
+│       ├── tickets.js               - Endpoints de chamados
+│       └── users.js                 - Endpoints de usuários
+│
+├── frontend/                        [UI React]
+│   ├── package.json                 - Dependências e scripts npm
+│   ├── public/                      - Arquivos estáticos
+│   │   ├── index.html               - HTML principal
+│   │   └── logos/                   - Assets de logo
+│   ├── src/
+│   │   ├── App.js                   - Componente raiz
+│   │   ├── api.js                   - Cliente HTTP (Axios)
+│   │   ├── index.js                 - Ponto de entrada
+│   │   ├── index.css                - Estilos globais
+│   │   ├── store.js                 - Redux store
+│   │   ├── components/
+│   │   │   └── Navbar.js            - Barra de navegação
+│   │   ├── features/                - Redux slices
+│   │   │   ├── assetsSlice.js
+│   │   │   ├── authSlice.js
+│   │   │   ├── ticketsSlice.js
+│   │   │   └── usersSlice.js
+│   │   └── pages/                   - Páginas da aplicação
+│   │       ├── Assets.js            - Página de ativos
+│   │       ├── Dashboard.js         - Dashboard principal
+│   │       ├── Dispositivos.js      - Página de dispositivos
+│   │       ├── Login.js             - Página de login
+│   │       ├── Tickets.js           - Página de chamados
+│   │       └── Users.js             - Página de usuários
+│   ├── build/                       - Build otimizado
+│   └── assets/                      - Assets do frontend
+│
+├── installer/                       [Aplicativo Windows Form C#]
+│   ├── build.ps1                    - Script de build
+│   ├── install_ticket_app.ps1       - Script de instalação
+│   ├── Product.wxs                  - Configuração WiX Installer
+│   ├── TicketApp/
+│   │   ├── Program.cs               - Aplicação WinForms
+│   │   ├── TicketApp.csproj         - Configuração do projeto
+│   │   ├── bin/                     - Binários compilados
+│   │   ├── obj/                     - Objetos de build
+│   │   └── publish/                 - Arquivos publicados
+│   ├── CustomActions/               - Ações customizadas de instalação
+│   │   ├── CustomActions.cs
+│   │   ├── CustomActions.csproj
+│   │   ├── bin/
+│   │   └── obj/
+│   └── output/                      - Saída do instalador
+│
+├── .github/
+│   └── copilot-instructions.md      - Instruções customizadas do Copilot
+│
+├── Projeto AETHER.sln               - Solução Visual Studio
+├── README.md                        - Documentação do projeto
+├── setup.ps1                        - Script de setup inicial
+├── start-app.bat                    - Script de inicialização
+└── arq.txt                          - Este arquivo
+
+================================================================================
+COMPONENTES PRINCIPAIS
+================================================================================
+
+1. BACKEND (Node.js + Express)
+   - Porta: 5000
+   - Autenticação: JWT com bcryptjs
+   - Banco de Dados: PostgreSQL 12+
+   - Endpoints: /api/tickets, /api/users, /api/assets, /api/devices, /api/agent
+
+2. FRONTEND (React + Redux + Material-UI)
+   - Porta: 3000
+   - Autenticação: JWT (token armazenado no Redux)
+   - Comunicação: Axios para HTTP
+   - Estado: Redux Toolkit
+
+3. TICKETAPP (C# .NET 8.0 Windows Forms)
+   - Interface: Windows Forms desktop
+   - Coleta de dados: WMI, Registry, Sistema de arquivos
+   - Comunicação: HTTP para backend AETHER
+   - Campos coletados:
+     * Visíveis: Resumo, Urgência, Tipo, Explicação
+     * Ocultos: Hostname, Serial, OS, Processador, RAM, RealVNC, RustDesk
+
+4. AGENTE PYTHON (inventory_agent.py)
+   - Monitoramento de inventário
+   - Sincronização com backend
+
+================================================================================
+FLUXO DE DADOS - CRIAÇÃO DE CHAMADO
+================================================================================
+
+1. Usuário abre TicketApp (Windows)
+2. Preenche 4 campos obrigatórios (Resumo, Urgência, Tipo, Explicação)
+3. Clica "Enviar Chamado"
+4. TicketApp coleta automaticamente 7 dados de máquina:
+   - Hostname (Environment.MachineName)
+   - Serial BIOS (WMI Win32_BIOS)
+   - Sistema Operacional (Environment.OSVersion)
+   - Processador (WMI Win32_Processor)
+   - RAM (WMI Win32_PhysicalMemory em GB)
+   - RealVNC ID (Registry HKLM/HKCU)
+   - RustDesk ID (Arquivo %APPDATA% ou Registry)
+5. Envia POST para backend com JSON completo
+6. Backend valida e armazena em PostgreSQL
+7. Frontend React exibe chamado na interface
+
+================================================================================
+CREDENCIAIS PADRÃO
+================================================================================
+
+Email: admin@aether.com
+Senha: admin123
+Nota: Senha armazenada com bcryptjs (rounds: 10)
+
+================================================================================
+SCRIPTS DE INICIALIZAÇÃO
+================================================================================
+
+start-app.bat
+   Comando padrão: npm install (se necessário), inicia backend e frontend
+   Comandos disponíveis:
+   - start      : Inicia backend e frontend
+   - stop       : Para todos os servidores
+   - restart    : Reinicia backend e frontend
+   - status     : Verifica status dos servidores
+   - help       : Exibe ajuda
+
+setup.ps1
+   Script de setup PowerShell para ambiente inicial
+
+build.ps1 (installer/)
+   Constrói instalador WiX para TicketApp
+
+install_ticket_app.ps1
+   Instala TicketApp no sistema
+
+================================================================================
+DEPENDÊNCIAS PRINCIPAIS
+================================================================================
+
+BACKEND:
+- express: Framework web
+- pg: Cliente PostgreSQL
+- jsonwebtoken: Autenticação JWT
+- bcryptjs: Hash de senhas
+- socket.io: Comunicação em tempo real
+- dotenv: Variáveis de ambiente
+- helmet: Segurança HTTP
+
+FRONTEND:
+- react: UI framework
+- @reduxjs/toolkit: Estado da aplicação
+- @mui/material: Componentes Material Design
+- axios: Cliente HTTP
+- react-router-dom: Roteamento
+
+TICKETAPP:
+- System.Management: Queries WMI
+- System.Windows.Forms: UI desktop
+- System.Net.Http: Cliente HTTP
+
+================================================================================
+BANCO DE DADOS - SCHEMA PRINCIPAL
+================================================================================
+
+Tabela: tickets
+Colunas:
+  - id (INT, PRIMARY KEY)
+  - title (VARCHAR)
+  - description (VARCHAR)
+  - priority (VARCHAR: low/medium/high/urgent)
+  - status (VARCHAR: open/in_progress/closed)
+  - assigned_to (INT, FOREIGN KEY)
+  - hostname (VARCHAR) - NOVO
+  - serial_number (VARCHAR) - NOVO
+  - operating_system (VARCHAR) - NOVO
+  - processor (VARCHAR) - NOVO
+  - ram_memory (VARCHAR) - NOVO
+  - realvnc_id (VARCHAR) - NOVO
+  - rustdesk_id (VARCHAR) - NOVO
+  - created_at (TIMESTAMP)
+  - updated_at (TIMESTAMP)
+
+================================================================================
+CONFIGURAÇÃO AMBIENTAL
+================================================================================
+
+Backend (.env):
+  DATABASE_URL=postgres://user:password@localhost:5432/aether
+  JWT_SECRET=seu_segredo_jwt
+  PORT=5000
+
+Frontend (.env):
+  REACT_APP_API_URL=http://localhost:5000/api
+  DANGEROUSLY_DISABLE_HOST_CHECK=true (para desenvolvimento)
+
+TicketApp (config.json):
+  {
+    "backendUrl": "http://localhost:5000/api",
+    "timeout": 30000
+  }
+
+================================================================================
+INSTRUÇÕES DE USO
+================================================================================
+
+1. INICIAR APLICAÇÃO:
+   cd c:\Projeto AETHER
+   start-app.bat
+
+2. ACESSAR FRONTEND:
+   http://localhost:3000
+   Login: admin@aether.com / admin123
+
+3. ABRIR TICKETAPP:
+   c:\Projeto AETHER\installer\TicketApp\bin\Release\net8.0-windows\TicketApp.exe
+
+4. PARAR APLICAÇÃO:
+   start-app.bat stop
+
+================================================================================
+STATUS DE DESENVOLVIMENTO
+================================================================================
+
+✅ CONCLUÍDO:
+- Autenticação JWT com bcryptjs
+- API REST com Express
+- Frontend React com Redux
+- TicketApp com coleta automática de dados
+- Simplificação de UI (campos ocultos)
+- Scripts de inicialização
+- Compilação TicketApp (.NET 8.0)
+
+⚠️  TESTANDO:
+- Envio de chamados com dados automáticos
+- Persistência no PostgreSQL
+- Exibição em tempo real no frontend
+
+📋 PLANEJADO:
+- Relatórios de ativos
+- Dashboard de agente
+- Sincronização com RealVNC/RustDesk
+- Notificações em tempo real
+
+================================================================================
+PROBLEMAS CONHECIDOS E SOLUÇÕES
+================================================================================
+
+Problema: Frontend não inicia com erro de allowedHosts
+Solução: start-app.bat define DANGEROUSLY_DISABLE_HOST_CHECK=true
+
+Problema: Login com credenciais inválidas
+Solução: Garantir que senha seja hashada com bcryptjs no banco
+
+Problema: System.Management namespace não encontrado
+Solução: Adicionar PackageReference no .csproj (System.Management v8.0.0)
+
+================================================================================
+NOTAS IMPORTANTES
+================================================================================
+
+- A coleta de dados de máquina é SILENCIOSA (não aparece ao usuário)
+- Apenas 4 campos são visíveis no formulário TicketApp
+- Todos os dados coletados são enviados ao backend automaticamente
+- O backend armazena em PostgreSQL com timestamp
+- Frontend React exibe chamados em tempo real
+- Senhas são sempre hashadas com bcryptjs (nunca armazenar em plaintext)
+
+================================================================================

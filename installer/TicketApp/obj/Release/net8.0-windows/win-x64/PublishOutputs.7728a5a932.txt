@@ -1,0 +1,5 @@
+C:\Projeto AETHER\installer\TicketApp\bin\Release\net8.0-windows\win-x64\publish\TicketApp.exe
+C:\Projeto AETHER\installer\TicketApp\bin\Release\net8.0-windows\win-x64\publish\TicketApp.dll
+C:\Projeto AETHER\installer\TicketApp\bin\Release\net8.0-windows\win-x64\publish\TicketApp.deps.json
+C:\Projeto AETHER\installer\TicketApp\bin\Release\net8.0-windows\win-x64\publish\TicketApp.runtimeconfig.json
+C:\Projeto AETHER\installer\TicketApp\bin\Release\net8.0-windows\win-x64\publish\TicketApp.pdb

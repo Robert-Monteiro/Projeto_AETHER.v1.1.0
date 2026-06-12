@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+  <Product Id="*" Name="LuxAgent" Language="1033" Version="2.0.1.5" Manufacturer="Aether Works" UpgradeCode="{F3B1C0B9-4BFA-4C99-9B00-6F6B7D7C1A2E}">
+    <Package InstallerVersion="500" Compressed="yes" InstallScope="perMachine" Description="Lux Remote Monitoring Agent" />
+
+    <!-- Valores padrão; podem ser sobrescritos via linha de comando (msiexec) -->
+    <Property Id="AGENTID" Value="" />
+    <Property Id="ACCOUNTID" Value="" />
+    <Property Id="ENVIRONMENT" Value="" />
+    <Property Id="CUSTOMERID" Value="" />
+    <Property Id="FOLDERID" Value="" />
+
+    <!-- URLs usados para baixar dependências -->
+    <Property Id="DOTNET472_URL" Value="https://ps.atera.com/installers/dotnet/NDP472-KB4054530-x86-x64-AllOS-ENU.exe" />
+    <Property Id="DOTNET_INSTALL_PS1_URL" Value="https://dot.net/v1/dotnet-install.ps1" />
+    <Property Id="DOTNET_RUNTIME_VERSION" Value="8.0" />
+
+    <!-- Tela padrão de instalação com escolha de pasta -->
+    <UIRef Id="WixUI_InstallDir" />
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />
+
+    <!-- Garantias de pré-requisitos -->
+    <Condition Message="Este instalador requer Windows 64-bit.">
+      <![CDATA[VersionNT64]]>
+    </Condition>
+    <Condition Message="Este instalador deve ser executado com privilégios de administrador.">
+      <![CDATA[Privileged]]>
+    </Condition>
+
+    <!-- Check .NET Framework 4.7.2 (via NetFx extension) -->
+    <PropertyRef Id="NETFRAMEWORK472" />
+    <Condition Message="O .NET Framework 4.7.2 não está instalado.">
+      <![CDATA[NETFRAMEWORK472]]>
+    </Condition>
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFiles64Folder">
+        <Directory Id="AetherNetworksFolder" Name="AETHER Networks">
+          <Directory Id="INSTALLFOLDER" Name="LuxAgent">
+            <Directory Id="AgentFolder" Name="agent" />
+          </Directory>
+        </Directory>
+      </Directory>
+      <Directory Id="ProgramMenuFolder" Name="Programs">
+        <Directory Id="AetherTicketPrograms" Name="Aether Ticket" />
+      </Directory>
+      <Directory Id="DesktopFolder" Name="Desktop" />
+    </Directory>
+
+    <DirectoryRef Id="AgentFolder">
+      <Component Id="AgentPyComponent" Guid="*" Win64="yes">
+        <File Id="InventoryAgentPy" Source="..\agent\inventory_agent.py" KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+
+    <DirectoryRef Id="INSTALLFOLDER">
+      <Component Id="AgentExeComponent" Guid="*" Win64="yes">
+        <File Id="LuxAgentExe" Source="..\agent\LuxAgent.exe" KeyPath="yes" />
+        <ServiceInstall Id="ServiceInstaller"
+                        Type="ownProcess"
+                        Name="LuxAgentWindowsService"
+                        DisplayName="Lux Agent Service"
+                        Description="Monitoring & Management Agent by AETHER"
+                        Start="auto"
+                        ErrorControl="normal"
+                        Vital="yes"
+                        Account="LocalSystem" />
+        <ServiceControl Id="ServiceControlStart" Name="LuxAgentWindowsService" Start="install" Stop="both" Remove="uninstall" Wait="yes" />
+      </Component>
+      <Component Id="TicketAppExeComponent" Guid="*" Win64="yes">
+        <File Id="TicketAppExe" Source="TicketApp\bin\Release\net8.0-windows\win-x64\publish\TicketApp.exe" KeyPath="yes" />
+      </Component>
+      <Component Id="PerfCountersComponent" Guid="*" Win64="yes">
+        <File Id="PerfCountersIni" Source="LuxAgentPerformanceCounters.ini" KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+
+    <DirectoryRef Id="AetherTicketPrograms">
+      <Component Id="TicketAppShortcutComponent" Guid="*" Win64="yes">
+        <Shortcut Id="TicketAppStartMenuShortcut"
+                  Name="Aether Ticket"
+                  Directory="AetherTicketPrograms"
+                  Target="[INSTALLFOLDER]TicketApp.exe"
+                  WorkingDirectory="INSTALLFOLDER" />
+        <RemoveFolder Id="RemoveAetherTicketPrograms" On="uninstall" />
+        <RegistryValue Root="HKCU" Key="Software\AetherTicketApp" Name="Installed" Type="integer" Value="1" KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+
+    <DirectoryRef Id="DesktopFolder">
+      <Component Id="TicketAppDesktopShortcutComponent" Guid="*" Win64="yes">
+        <Shortcut Id="TicketAppDesktopShortcut"
+                  Name="Aether Ticket"
+                  Directory="DesktopFolder"
+                  Target="[INSTALLFOLDER]TicketApp.exe"
+                  WorkingDirectory="INSTALLFOLDER" />
+        <RegistryValue Root="HKCU" Key="Software\AetherTicketAppDesktop" Name="Installed" Type="integer" Value="1" KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+
+    <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+      <ComponentRef Id="AgentExeComponent" />
+      <ComponentRef Id="AgentPyComponent" />
+      <ComponentRef Id="TicketAppExeComponent" />
+      <ComponentRef Id="TicketAppShortcutComponent" />
+      <ComponentRef Id="TicketAppDesktopShortcutComponent" />
+    </ComponentGroup>
+
+    <Feature Id="ProductFeature" Title="Aether Agent" Level="1">
+      <ComponentGroupRef Id="ProductComponents" />
+    </Feature>
+  </Product>
+</Wix>
