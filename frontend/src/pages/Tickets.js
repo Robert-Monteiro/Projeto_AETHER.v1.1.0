@@ -56,6 +56,7 @@ const Chamados = () => {
   const [viewMode, setViewMode] = useState('tabela');
   const [submitError, setSubmitError] = useState(null);
   const [successOpen, setSuccessOpen] = useState(false);
+  const [agentRunning, setAgentRunning] = useState(true);
 
   const getAssignedUserName = (assignedToId) => {
     const assignedUser = users.find((u) => u.id === assignedToId);
@@ -106,6 +107,7 @@ const Chamados = () => {
     summary: '',
     ip: '',
     anydeskCode: '',
+    rustdeskCode: '',
   });
 
   useEffect(() => {
@@ -122,10 +124,20 @@ const Chamados = () => {
         .catch(err => console.error('Erro ao obter IP:', err));
 
       // Buscar AnyDesk do agent local
-      fetch('http://localhost:5001/get-info')
+      fetch('http://localhost:5001/get-info', { signal: AbortSignal.timeout(3000) })
         .then(response => response.json())
-        .then(data => setFormData(prev => ({ ...prev, anydeskCode: data.anydesk || '' })))
-        .catch(err => console.error('Erro ao obter AnyDesk:', err));
+        .then(data => {
+          setAgentRunning(true);
+          setFormData(prev => ({ 
+            ...prev, 
+            anydeskCode: data.anydesk || '',
+            rustdeskCode: data.rustdesk || ''
+          }));
+        })
+        .catch(err => {
+          console.error('Agente local (TicketApp) não detectado:', err);
+          setAgentRunning(false);
+        });
     }
   }, [dialogNovo]);
 
@@ -145,6 +157,51 @@ const Chamados = () => {
       clearInterval(intervalId);
     };
   }, [dispatch]);
+
+  const getRustDeskInfo = () => {
+    const userAgent = window.navigator.userAgent;
+    const platform = window.navigator.platform;
+    
+    let os = 'Desconhecido';
+    let arch = 'x64';
+    let link = 'https://rustdesk.com/download';
+
+    // Detecção de Windows
+    if (/Win/.test(platform) || /Win/.test(userAgent)) {
+      os = 'Windows';
+      const is64 = /x64|WOW64|Win64|x86_64/.test(userAgent);
+      arch = is64 ? '64-bit' : '32-bit';
+      link = is64 
+        ? "https://github.com/rustdesk/rustdesk/releases/download/1.4.7/rustdesk-1.4.7-x86_64.exe"
+        : "https://github.com/rustdesk/rustdesk/releases/download/1.4.7/rustdesk-1.4.7-x86-sciter.exe";
+    }
+    // Detecção de Mac
+    else if (/Mac/.test(platform) || /Mac/.test(userAgent)) {
+      os = 'Mac';
+      // Detecta Apple Silicon (ARM64) vs Intel (x86_64)
+      const isArm = /arm|aarch64/i.test(userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+      arch = isArm ? 'ARM64' : 'x86-64';
+      link = isArm
+        ? "https://github.com/rustdesk/rustdesk/releases/download/1.4.7/rustdesk-1.4.7-aarch64.dmg"
+        : "https://github.com/rustdesk/rustdesk/releases/download/1.4.7/rustdesk-1.4.7-x86_64.dmg";
+    }
+    // Detecção de Ubuntu/Linux
+    else if (/Linux|Ubuntu/.test(userAgent)) {
+      os = 'Ubuntu/Linux';
+      if (/aarch64|arm64/i.test(userAgent)) {
+        arch = 'ARM64';
+        link = "https://github.com/rustdesk/rustdesk/releases/download/1.4.7/rustdesk-1.4.7-aarch64.deb";
+      } else if (/armv7/i.test(userAgent)) {
+        arch = 'ARMv7';
+        link = "https://github.com/rustdesk/rustdesk/releases/download/1.4.7/rustdesk-1.4.7-armv7-sciter.deb";
+      } else {
+        arch = 'x86-64';
+        link = "https://github.com/rustdesk/rustdesk/releases/download/1.4.7/rustdesk-1.4.7-x86_64.deb";
+      }
+    }
+    
+    return { os, arch, link };
+  };
 
   const handleSelectAll = (event) => {
     if (event.target.checked) {
@@ -171,6 +228,7 @@ const Chamados = () => {
       summary: '',
       ip: '',
       anydeskCode: '',
+      rustdeskCode: '',
     });
     setDialogNovo(true);
   };
@@ -193,8 +251,22 @@ const Chamados = () => {
       return;
     }
 
+    if (!formData.rustdeskCode) {
+      setSubmitError('O RustDesk não foi detectado. É obrigatório instalar o programa antes de abrir o chamado.');
+      return;
+    }
+
+    // Desestruturação para remover campos temporários do payload final
+    const { anydeskCode, rustdeskCode, ...cleanFormData } = formData;
+
     const payload = {
-      ...formData,
+      ...cleanFormData,
+      title: formData.title,
+      description: formData.description,
+      hostname: window.location.hostname, // O agente costuma enviar isso, mas garantimos aqui
+      ip: formData.ip,
+      rustdesk_id: formData.rustdeskCode,
+      anydesk_id: formData.anydeskCode,
       assignedTo: formData.assignedTo || undefined,
     };
 
@@ -210,6 +282,7 @@ const Chamados = () => {
         summary: '',
         ip: '',
         anydeskCode: '',
+        rustdeskCode: '',
       });
       dispatch(fetchTickets());
       setSuccessOpen(true);
@@ -519,6 +592,48 @@ const Chamados = () => {
               </Alert>
             )}
             <Grid container spacing={2}>
+              {(!agentRunning || !formData.rustdeskCode) && (
+                <Grid item xs={12}>
+                  <Alert severity="warning" variant="filled" sx={{ mb: 2 }}>
+                    <Typography variant="subtitle2" sx={{ fontWeight: 'bold' }}>
+                      {!agentRunning 
+                        ? "Agente de Captura não detectado!" 
+                        : `RustDesk não instalado! (${getRustDeskInfo().os} ${getRustDeskInfo().arch})`}
+                    </Typography>
+                    <Typography variant="body2">
+                      {!agentRunning 
+                        ? "Certifique-se de que o programa 'Aether Ticket' está aberto em sua máquina para capturar os IDs de suporte." 
+                        : `Para abrir um chamado, você deve instalar a versão do RustDesk recomendada para seu sistema (${getRustDeskInfo().os}).`}
+                    </Typography>
+                    {!agentRunning && (
+                       <Button 
+                        variant="contained" 
+                        color="inherit" 
+                        size="small" 
+                        sx={{ mt: 1, color: '#000' }}
+                        onClick={() => setDialogNovo(false)}
+                      >
+                        Tentar Novamente
+                      </Button>
+                    )}
+                    <Box sx={{ mt: 1 }}>
+                      <Typography variant="caption" display="block">1. Baixe o instalador no botão abaixo.</Typography>
+                      <Typography variant="caption" display="block">2. Execute o arquivo e siga os passos na tela.</Typography>
+                      <Typography variant="caption" display="block">3. Certifique-se de que o ID de acesso foi gerado.</Typography>
+                    </Box>
+                    <Button 
+                      variant="contained" 
+                      color="inherit" 
+                      size="small" 
+                      sx={{ mt: 2, color: '#000' }}
+                      href={getRustDeskInfo().link} 
+                      target="_blank"
+                    >
+                      Download RustDesk
+                    </Button>
+                  </Alert>
+                </Grid>
+              )}
               <Grid item xs={12} sm={6}>
                 <TextField
                   fullWidth
@@ -570,6 +685,19 @@ const Chamados = () => {
                   label="Código AnyDesk"
                   value={formData.anydeskCode}
                   onChange={(e) => setFormData({ ...formData, anydeskCode: e.target.value })}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  fullWidth
+                  label="Código RustDesk"
+                  value={formData.rustdeskCode}
+                  onChange={(e) => setFormData({ ...formData, rustdeskCode: e.target.value })}
+                  InputProps={{
+                    endAdornment: formData.rustdeskCode ? (
+                      <CheckCircle sx={{ color: 'success.main', ml: 1 }} />
+                    ) : null,
+                  }}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -701,7 +829,11 @@ const Chamados = () => {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <Typography variant="subtitle2" color="textSecondary">Código AnyDesk</Typography>
-                  <Typography>{chamadoSelecionado.anydeskCode || '-'}</Typography>
+                  <Typography>{chamadoSelecionado.anydesk_id || chamadoSelecionado.anydeskCode || '-'}</Typography>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <Typography variant="subtitle2" color="textSecondary">Código RustDesk</Typography>
+                  <Typography>{chamadoSelecionado.rustdesk_id || chamadoSelecionado.rustdeskCode || '-'}</Typography>
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <Typography variant="subtitle2" color="textSecondary">Criado em</Typography>

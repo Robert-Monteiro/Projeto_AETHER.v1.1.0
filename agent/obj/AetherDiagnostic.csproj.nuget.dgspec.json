@@ -1,30 +1,30 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Projeto_AETHER_v1.1.1\\installer\\CustomActions\\CustomActions.csproj": {}
+    "C:\\Projeto_AETHER_v1.1.1\\agent\\AetherDiagnostic.csproj": {}
   },
   "projects": {
-    "C:\\Projeto_AETHER_v1.1.1\\installer\\CustomActions\\CustomActions.csproj": {
+    "C:\\Projeto_AETHER_v1.1.1\\agent\\AetherDiagnostic.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Projeto_AETHER_v1.1.1\\installer\\CustomActions\\CustomActions.csproj",
-        "projectName": "CustomActions",
-        "projectPath": "C:\\Projeto_AETHER_v1.1.1\\installer\\CustomActions\\CustomActions.csproj",
+        "projectUniqueName": "C:\\Projeto_AETHER_v1.1.1\\agent\\AetherDiagnostic.csproj",
+        "projectName": "AetherDiagnostic",
+        "projectPath": "C:\\Projeto_AETHER_v1.1.1\\agent\\AetherDiagnostic.csproj",
         "packagesPath": "C:\\Users\\Robert.De Luca\\.nuget\\packages\\",
-        "outputPath": "C:\\Projeto_AETHER_v1.1.1\\installer\\CustomActions\\obj\\",
+        "outputPath": "C:\\Projeto_AETHER_v1.1.1\\agent\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Robert.De Luca\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
-          "net8.0"
+          "net8.0-windows"
         ],
         "sources": {
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net8.0": {
-            "targetAlias": "net8.0",
+          "net8.0-windows7.0": {
+            "targetAlias": "net8.0-windows",
             "projectReferences": {}
           }
         },
@@ -41,12 +41,12 @@
         "SdkAnalysisLevel": "10.0.200"
       },
       "frameworks": {
-        "net8.0": {
-          "targetAlias": "net8.0",
+        "net8.0-windows7.0": {
+          "targetAlias": "net8.0-windows",
           "dependencies": {
-            "Microsoft.Deployment.WindowsInstaller": {
+            "System.Management": {
               "target": "Package",
-              "version": "[4.5.0, )"
+              "version": "[8.0.0, )"
             }
           },
           "imports": [
@@ -66,6 +66,10 @@
               "version": "[8.0.25, 8.0.25]"
             },
             {
+              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "version": "[8.0.25, 8.0.25]"
+            },
+            {
               "name": "Microsoft.NETCore.App.Ref",
               "version": "[8.0.25, 8.0.25]"
             },
@@ -77,6 +81,9 @@
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
+            },
+            "Microsoft.WindowsDesktop.App.WindowsForms": {
+              "privateAssets": "none"
             }
           },
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.201/PortableRuntimeIdentifierGraph.json"

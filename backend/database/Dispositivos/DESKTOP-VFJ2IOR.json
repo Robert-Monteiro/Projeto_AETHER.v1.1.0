@@ -1,0 +1,672 @@
+{
+  "id": 1,
+  "hostname": "DESKTOP-VFJ2IOR",
+  "system_info": {
+    "hostname": "DESKTOP-VFJ2IOR",
+    "os": "Windows",
+    "os_version": "10.0.26200",
+    "architecture": "AMD64",
+    "processor": "Intel64 Family 6 Model 167 Stepping 1, GenuineIntel",
+    "cpu_count": 12,
+    "memory_total": 8368705536,
+    "disks": [
+      {
+        "device": "C:\\",
+        "mountpoint": "C:\\",
+        "total": 127025541120,
+        "used": 123824345088,
+        "free": 3201196032
+      },
+      {
+        "device": "D:\\",
+        "mountpoint": "D:\\",
+        "total": 480101003264,
+        "used": 145626742784,
+        "free": 334474260480
+      },
+      {
+        "device": "E:\\",
+        "mountpoint": "E:\\",
+        "total": 8001545039872,
+        "used": 4580297752576,
+        "free": 3421247287296
+      }
+    ]
+  },
+  "installed_software": [
+    {
+      "name": "AnyDesk",
+      "version": "ad 9.7.5",
+      "publisher": "AnyDesk Software GmbH"
+    },
+    {
+      "name": "Bandicam",
+      "version": "8.3.0.2533",
+      "publisher": "Bandicam.com"
+    },
+    {
+      "name": "Bandicam MPEG-1 Decoder",
+      "version": "",
+      "publisher": "Bandicam.com"
+    },
+    {
+      "name": "Ferramentas deÿBuild do Visual Studio 2026",
+      "version": "18.4.0",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "",
+      "version": "",
+      "publisher": ""
+    },
+    {
+      "name": "Creality Print 6.3",
+      "version": "6.3.0",
+      "publisher": "Creality"
+    },
+    {
+      "name": "Driver Booster 12",
+      "version": "12.0.0",
+      "publisher": "IObit"
+    },
+    {
+      "name": "Receitanet BX",
+      "version": "1.9.26",
+      "publisher": "Serpro - Servi‡o Federal de Processamento de Dados"
+    },
+    {
+      "name": "Epson Scan 2",
+      "version": "",
+      "publisher": "Seiko Epson Corporation"
+    },
+    {
+      "name": "Google Chrome",
+      "version": "149.0.7827.114",
+      "publisher": "Google LLC"
+    },
+    {
+      "name": "IP Utility 1.0.1",
+      "version": "1.0.1",
+      "publisher": "Intelbras S/A"
+    },
+    {
+      "name": "Microsoft Edge",
+      "version": "149.0.4022.62",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "",
+      "version": "1.3.239.19",
+      "publisher": ""
+    },
+    {
+      "name": "Microsoft Edge WebView2 Runtime",
+      "version": "149.0.4022.62",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "UltiMaker Cura 5.10.2",
+      "version": "5.10.2",
+      "publisher": "UltiMaker"
+    },
+    {
+      "name": "",
+      "version": "",
+      "publisher": ""
+    },
+    {
+      "name": "",
+      "version": "",
+      "publisher": ""
+    },
+    {
+      "name": "Epson Software Updater",
+      "version": "4.6.10",
+      "publisher": "Seiko Epson Corporation"
+    },
+    {
+      "name": "Microsoft Visual Studio Setup Configuration",
+      "version": "4.3.2028.6109",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "Universal CRT Extension SDK",
+      "version": "10.1.26100.7705",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "Universal CRT Redistributable",
+      "version": "10.0.26624",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "Epson Event Manager",
+      "version": "3.11.85",
+      "publisher": "Seiko Epson Corporation"
+    },
+    {
+      "name": "MSI Development Tools",
+      "version": "10.1.26100.7705",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "WinRT Intellisense UAP - Other Languages",
+      "version": "10.1.26100.7705",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "Windows SDK Desktop Headers arm64",
+      "version": "10.1.26100.7705",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "Microsoft Visual C++ v14 Redistributable (x86) - 14.50.35719",
+      "version": "14.50.35719.0",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "Epson Printer Connection Checker",
+      "version": "3.4.2.0",
+      "publisher": "Seiko Epson Corporation"
+    },
+    {
+      "name": "Windows SDK DirectX x86 Remote",
+      "version": "10.1.26100.7705",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "Windows SDK Desktop Libs x64",
+      "version": "10.1.26100.7705",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "Windows SDK AddOn",
+      "version": "10.1.0.0",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "Radmin Server 3.5.2",
+      "version": "3.52.1.0000",
+      "publisher": "Famatech"
+    },
+    {
+      "name": "WiX Toolset v3.14 Native 2010 SDK",
+      "version": "3.14.8722",
+      "publisher": ".NET Foundation"
+    },
+    {
+      "name": "Windows Team Extension SDK",
+      "version": "10.1.26100.7705",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "Windows SDK Modern Non-Versioned Developer Tools",
+      "version": "10.1.26100.7705",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "Windows SDK Desktop Libs arm64",
+      "version": "10.1.26100.7705",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "Windows SDK for Windows Store Apps Libs",
+      "version": "10.1.26100.7705",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "Lightshot-5.5.0.7",
+      "version": "5.5.0.7",
+      "publisher": "Skillbrains"
+    },
+    {
+      "name": "WinRT Intellisense IoT - Other Languages",
+      "version": "10.1.26100.7705",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "Universal CRT Redistributable",
+      "version": "10.1.26100.7705",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "WinRT Intellisense Mobile - en-us",
+      "version": "10.1.26100.7705",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "Autosky Plugin",
+      "version": "2.0.3.1",
+      "publisher": "Skyone Cloud Solutions"
+    },
+    {
+      "name": "Microsoft .NET SDK 10.0.201 (x64)",
+      "version": "10.2.126.15422",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "Kits Configuration Installer",
+      "version": "10.1.26100.7705",
+      "publisher": "Microsoft"
+    },
+    {
+      "name": "WiX Toolset v3.14 Native 2015 SDK",
+      "version": "3.14.8722",
+      "publisher": ".NET Foundation"
+    },
+    {
+      "name": "",
+      "version": "3.11.85",
+      "publisher": ""
+    },
+    {
+      "name": "Java Auto Updater",
+      "version": "2.8.481.10",
+      "publisher": "Oracle Corporation"
+    },
+    {
+      "name": "Assinador Serpro 4.4.0",
+      "version": "4.4.0",
+      "publisher": "Serpro - Provendo solu‡äes inteligentes para transforma‡Æo e inclusÆo digital"
+    },
+    {
+      "name": "Windows SDK for Windows Store Apps Tools",
+      "version": "10.1.26100.7705",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "Windows SDK for Windows Store Managed Apps Libs",
+      "version": "10.1.26100.7705",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "EPSON Scan PDF Extensions",
+      "version": "1.03.02.02",
+      "publisher": "Seiko Epson Corporation"
+    },
+    {
+      "name": "Windows SDK EULA",
+      "version": "10.1.26100.7705",
+      "publisher": "Microsoft Corporations"
+    },
+    {
+      "name": "WinRT Intellisense Desktop - en-us",
+      "version": "10.1.26100.7705",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "Windows SDK ARM64 Desktop Tools",
+      "version": "10.1.26100.7705",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "Microsoft Visual C++ 2022 X86 Minimum Runtime - 14.50.35719",
+      "version": "14.50.35719",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "WinRT Intellisense UAP - en-us",
+      "version": "10.1.26100.7705",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "vs_FileTracker_Singleton",
+      "version": "18.4.11506",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "AppController",
+      "version": "6.2.4.32657",
+      "publisher": "GraphOn Corporation"
+    },
+    {
+      "name": "ApowerREC V1.8.5.1",
+      "version": "1.8.5.1",
+      "publisher": "Apowersoft LIMITED"
+    },
+    {
+      "name": "WiX Toolset v3.14 Managed SDK",
+      "version": "3.14.8722",
+      "publisher": ".NET Foundation"
+    },
+    {
+      "name": "Java 8 Update 481",
+      "version": "8.0.4810.10",
+      "publisher": "Oracle Corporation"
+    },
+    {
+      "name": "Epson Photo+",
+      "version": "4.0.4.0",
+      "publisher": "Seiko Epson Corporation"
+    },
+    {
+      "name": "Microsoft Visual C++ 2022 X86 Additional Runtime - 14.50.35719",
+      "version": "14.50.35719",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "Windows SDK Desktop Tools arm64",
+      "version": "10.1.26100.7705",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "Universal CRT Headers Libraries and Sources",
+      "version": "10.1.26100.7705",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "Universal General MIDI DLS Extension SDK",
+      "version": "10.1.26100.7705",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "Windows SDK OnecoreUap Headers x64",
+      "version": "10.1.26100.7705",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "vs_vswebprotocolselectormsi",
+      "version": "18.4.11505",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "Epson Manuals",
+      "version": "2.0.4.0",
+      "publisher": "Seiko Epson Corporation"
+    },
+    {
+      "name": "Windows SDK OnecoreUap Headers arm64",
+      "version": "10.1.26100.7705",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "WiX Toolset v3.14.1.8722",
+      "version": "3.14.1.8722",
+      "publisher": ".NET Foundation"
+    },
+    {
+      "name": "WiX Toolset v3.14 Native 2013 SDK",
+      "version": "3.14.8722",
+      "publisher": ".NET Foundation"
+    },
+    {
+      "name": "WinRT Intellisense PPI - en-us",
+      "version": "10.1.26100.7705",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "Microsoft Visual C++ v14 Redistributable (x64) - 14.50.35719",
+      "version": "14.50.35719.0",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "WiX Toolset v3.14 Native 2017 SDK",
+      "version": "3.14.8722",
+      "publisher": ".NET Foundation"
+    },
+    {
+      "name": "Windows SDK Redistributables",
+      "version": "10.1.26100.7705",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "vcpp_crt.redist.clickonce",
+      "version": "14.50.35719",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "Windows Team Extension SDK Contracts",
+      "version": "10.1.26100.7705",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "WinRT Intellisense PPI - Other Languages",
+      "version": "10.1.26100.7705",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "Windows SDK Desktop Libs x86",
+      "version": "10.1.26100.7705",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "Windows Mobile Extension SDK Contracts",
+      "version": "10.1.26100.7705",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "Windows IoT Extension SDK",
+      "version": "10.1.26100.7705",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "Microsoft Visual C++ 2022 X86 Debug Runtime - 14.50.35719",
+      "version": "14.50.35719",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "Windows SDK",
+      "version": "10.1.26100.7705",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "Windows IoT Extension SDK Contracts",
+      "version": "10.1.26100.7705",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "SDK ARM64 Redistributables",
+      "version": "10.1.26100.7705",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "Adobe Refresh Manager",
+      "version": "1.8.0",
+      "publisher": "Adobe Systems Incorporated"
+    },
+    {
+      "name": "vs_vswebprotocolselectormsires",
+      "version": "18.4.11505",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "Windows SDK for Windows Store Apps Metadata",
+      "version": "10.1.26100.7705",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "Windows SDK for Windows Store Apps Headers",
+      "version": "10.1.26100.7705",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "Windows App Certification Kit x64",
+      "version": "10.1.26100.7705",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "Splashtop Streamer",
+      "version": "3.8.4.0",
+      "publisher": "Splashtop Inc."
+    },
+    {
+      "name": "Windows App Certification Kit x64 (OnecoreUAP)",
+      "version": "10.1.26100.7705",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "Windows Software Development Kit - Windows 10.0.26100.7705",
+      "version": "10.1.26100.7705",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "EPSON Scan OCR Component",
+      "version": "3.00.06",
+      "publisher": "Seiko Epson Corporation"
+    },
+    {
+      "name": "Windows SDK for Windows Store Apps Headers OnecoreUap",
+      "version": "10.1.26100.7705",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "Microsoft Windows Desktop Runtime - 8.0.26 (x64)",
+      "version": "8.0.26.35920",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "Windows SDK Desktop Headers x64",
+      "version": "10.1.26100.7705",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "Windows SDK for Windows Store Apps",
+      "version": "10.1.26100.7705",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "WiX Toolset v3.14 Core",
+      "version": "3.14.8722",
+      "publisher": ".NET Foundation"
+    },
+    {
+      "name": "WiX Toolset v3.14 Native 2012 SDK",
+      "version": "3.14.8722",
+      "publisher": ".NET Foundation"
+    },
+    {
+      "name": "WinAppDeploy",
+      "version": "10.1.26100.7705",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "Windows SDK Desktop Headers x86",
+      "version": "10.1.26100.7705",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "Python Launcher",
+      "version": "3.14.3150.0",
+      "publisher": "Python Software Foundation"
+    },
+    {
+      "name": "Microsoft Visual Studio Setup WMI Provider",
+      "version": "4.3.2028.6109",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "Windows SDK Desktop Tools x86",
+      "version": "10.1.26100.7705",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "Epson ScanSmart",
+      "version": "3.7.20",
+      "publisher": "Seiko Epson Corporation"
+    },
+    {
+      "name": "Advanced IP Scanner 2.5.1",
+      "version": "2.5.4594.1",
+      "publisher": "Famatech"
+    },
+    {
+      "name": "Windows App Certification Kit SupportedApiList x86",
+      "version": "10.1.26100.7705",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "vs_githubprotocolhandlermsi",
+      "version": "18.4.11505",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "Microsoft .NET Runtime - 8.0.11 (x64)",
+      "version": "8.0.11.34217",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "Windows SDK for Windows Store Apps Contracts",
+      "version": "10.1.26100.7705",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "Windows Mobile Extension SDK",
+      "version": "10.1.26100.7705",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "SDK ARM64 Additions",
+      "version": "10.1.26100.7705",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "WinRT Intellisense Desktop - Other Languages",
+      "version": "10.1.26100.7705",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "Windows SDK Desktop Tools x64",
+      "version": "10.1.26100.7705",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "WinRT Intellisense IoT - en-us",
+      "version": "10.1.26100.7705",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "",
+      "version": "",
+      "publisher": ""
+    },
+    {
+      "name": "Windows SDK OnecoreUap Headers x86",
+      "version": "10.1.26100.7705",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "Windows SDK Modern Versioned Developer Tools",
+      "version": "10.1.26100.7705",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "Reset Tools versÆo Intelbras",
+      "version": "Intelbras",
+      "publisher": "Intelbras, S.A."
+    },
+    {
+      "name": "Windows Desktop Extension SDK Contracts",
+      "version": "10.1.26100.7705",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "Windows SDK for Windows Store Apps DirectX x86 Remote",
+      "version": "10.1.26100.7705",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "Windows SDK Signing Tools",
+      "version": "10.1.26100.7705",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "Windows SDK Facade Windows WinMD Versioned",
+      "version": "10.1.26100.7705",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "Universal CRT Tools x86",
+      "version": "10.1.26100.7705",
+      "publisher": "Microsoft Corporation"
+    },
+    {
+      "name": "Windows Desktop Extension SDK",
+      "version": "10.1.26100.7705",
+      "publisher": "Microsoft Corporation"
+    }
+  ],
+  "network_devices": [],
+  "scan_timestamp": "2026-06-13T09:20:08.080614",
+  "created_at": "2026-06-13T13:20:10.225Z",
+  "updated_at": "2026-06-13T13:20:10.236Z"
+}

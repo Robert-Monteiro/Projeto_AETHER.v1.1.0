@@ -34,3 +34,12 @@
 2026-05-07 13:55:58,399 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
  * Running on http://127.0.0.1:5001
 2026-05-07 13:55:58,399 - INFO - [33mPress CTRL+C to quit[0m
+2026-06-13 09:20:07,036 - INFO - Starting inventory scan...
+2026-06-13 09:20:10,257 - INFO - Inventory data sent successfully
+2026-06-13 09:20:10,312 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5001
+2026-06-13 09:20:10,312 - INFO - [33mPress CTRL+C to quit[0m
+2026-06-13 09:21:53,089 - INFO - 127.0.0.1 - - [13/Jun/2026 09:21:53] "GET /get-info HTTP/1.1" 200 -
+2026-06-13 09:21:53,784 - INFO - 127.0.0.1 - - [13/Jun/2026 09:21:53] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-06-13 10:03:02,666 - INFO - 127.0.0.1 - - [13/Jun/2026 10:03:02] "GET /get-info HTTP/1.1" 200 -
+2026-06-13 10:03:05,331 - INFO - 127.0.0.1 - - [13/Jun/2026 10:03:05] "GET /get-info HTTP/1.1" 200 -

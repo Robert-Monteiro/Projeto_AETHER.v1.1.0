@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "okLz7GJDTF8=",
+  "success": true,
+  "projectFilePath": "C:\\Projeto_AETHER_v1.1.1\\agent\\AetherDiagnostic.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Robert.De Luca\\.nuget\\packages\\system.codedom\\8.0.0\\system.codedom.8.0.0.nupkg.sha512",
+    "C:\\Users\\Robert.De Luca\\.nuget\\packages\\system.management\\8.0.0\\system.management.8.0.0.nupkg.sha512",
+    "C:\\Users\\Robert.De Luca\\.nuget\\packages\\microsoft.netcore.app.ref\\8.0.25\\microsoft.netcore.app.ref.8.0.25.nupkg.sha512",
+    "C:\\Users\\Robert.De Luca\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\8.0.25\\microsoft.windowsdesktop.app.ref.8.0.25.nupkg.sha512",
+    "C:\\Users\\Robert.De Luca\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\8.0.25\\microsoft.aspnetcore.app.ref.8.0.25.nupkg.sha512",
+    "C:\\Users\\Robert.De Luca\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\8.0.25\\microsoft.netcore.app.host.win-x64.8.0.25.nupkg.sha512"
+  ],
+  "logs": []
+}
