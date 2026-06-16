@@ -168,11 +168,18 @@ class InventoryAgent:
         """Run complete inventory scan"""
         logging.info("Starting inventory scan...")
 
+        anydesk_id = self.get_anydesk_id()
+        rustdesk_id = self.get_rustdesk_id()
+
         inventory_data = {
             'hostname': socket.gethostname(),
             'system_info': self.get_system_info(),
             'installed_software': self.get_installed_software(),
             'network_devices': self.discover_network_devices(),
+            'remote_access': {
+                'anydesk': anydesk_id if anydesk_id else 'Não detectado',
+                'rustdesk': rustdesk_id if rustdesk_id else 'Não detectado'
+            },
             'scan_timestamp': datetime.now().isoformat()
         }
 
@@ -197,6 +204,61 @@ class InventoryAgent:
             return None
         except Exception as e:
             logging.error(f"Error retrieving AnyDesk ID: {e}")
+            return None
+
+    def get_rustdesk_id(self):
+        """Retrieve the RustDesk ID from configuration files or Registry."""
+        try:
+            import os
+            
+            # Try Windows Registry first
+            registry_paths = [
+                (winreg.HKEY_LOCAL_MACHINE, r"SOFTWARE\RustDesk"),
+                (winreg.HKEY_LOCAL_MACHINE, r"SOFTWARE\Wow6432Node\RustDesk"),
+                (winreg.HKEY_CURRENT_USER, r"SOFTWARE\RustDesk")
+            ]
+            
+            for hive, path in registry_paths:
+                try:
+                    key = winreg.OpenKey(hive, path)
+                    value, _ = winreg.QueryValueEx(key, "id")
+                    winreg.CloseKey(key)
+                    if value:
+                        return value
+                except:
+                    pass
+            
+            # If not found in registry, search in configuration files
+            import os.path
+            config_paths = [
+                os.path.expanduser(r"~\AppData\Roaming\RustDesk\config\rustdesk.toml"),
+                os.path.expanduser(r"~\AppData\Roaming\RustDesk\rustdesk.toml"),
+                os.path.expanduser(r"~\AppData\Roaming\RustDesk\config\service.toml"),
+                os.path.expandvars(r"%ProgramData%\RustDesk\config\rustdesk.toml"),
+                os.path.expandvars(r"%ProgramData%\RustDesk\rustdesk.toml"),
+                r"C:\Program Files\RustDesk\rustdesk.toml",
+                r"C:\Program Files (x86)\RustDesk\rustdesk.toml"
+            ]
+            
+            for config_file in config_paths:
+                if os.path.exists(config_file):
+                    try:
+                        with open(config_file, 'r', encoding='utf-8') as f:
+                            for line in f:
+                                line = line.strip()
+                                if line.startswith('id') and '=' in line:
+                                    parts = line.split('=', 1)
+                                    if len(parts) > 1:
+                                        rustdesk_id = parts[1].strip().strip('"\'')
+                                        if rustdesk_id:
+                                            return rustdesk_id
+                    except Exception as e:
+                        logging.debug(f"Error reading RustDesk config {config_file}: {e}")
+                        continue
+            
+            return None
+        except Exception as e:
+            logging.error(f"Error retrieving RustDesk ID: {e}")
             return None
 
     def get_client_ip(self):

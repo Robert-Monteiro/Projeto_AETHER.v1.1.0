@@ -138,18 +138,46 @@ namespace AetherAgent
 
         private string GetRustDeskId()
         {
+            // Tentar buscar no registro do Windows (para versões que armazenam lá)
+            string[] registryPaths = {
+                @"HKEY_LOCAL_MACHINE\SOFTWARE\RustDesk",
+                @"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\RustDesk",
+                @"HKEY_CURRENT_USER\SOFTWARE\RustDesk"
+            };
+
+            foreach (var regPath in registryPaths) {
+                var val = Registry.GetValue(regPath, "id", null)?.ToString();
+                if (!string.IsNullOrEmpty(val)) return val;
+            }
+
+            // Tentar buscar em arquivos de configuração
             string[] paths = {
                 Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"RustDesk\config\rustdesk.toml"),
+                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"RustDesk\rustdesk.toml"),
                 Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"RustDesk\config\service.toml"),
-                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), @"RustDesk\config\rustdesk.toml")
+                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), @"RustDesk\config\rustdesk.toml"),
+                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), @"RustDesk\rustdesk.toml"),
+                @"C:\Program Files\RustDesk\rustdesk.toml",
+                @"C:\Program Files (x86)\RustDesk\rustdesk.toml"
             };
 
             foreach (var path in paths) {
                 if (File.Exists(path)) {
-                    foreach (var line in File.ReadAllLines(path))
-                        if (line.Contains("id =")) return line.Split('=')[1].Trim().Trim('"', '\'');
+                    try {
+                        foreach (var line in File.ReadAllLines(path)) {
+                            // Buscar por "id =" ou "peer_id ="
+                            if (line.Trim().StartsWith("id") && line.Contains("=")) {
+                                var parts = line.Split('=');
+                                if (parts.Length > 1) {
+                                    var id = parts[1].Trim().Trim('"', '\'', ' ');
+                                    if (!string.IsNullOrEmpty(id)) return id;
+                                }
+                            }
+                        }
+                    } catch { }
                 }
             }
+
             return "Não detectado";
         }
 

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Projeto_AETHER_v1.1.1\\installer\\CustomActions\\CustomActions.csproj": {}
+    "C:\\Projeto_AETHER_v1.1.0\\installer\\CustomActions\\CustomActions.csproj": {}
   },
   "projects": {
-    "C:\\Projeto_AETHER_v1.1.1\\installer\\CustomActions\\CustomActions.csproj": {
+    "C:\\Projeto_AETHER_v1.1.0\\installer\\CustomActions\\CustomActions.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Projeto_AETHER_v1.1.1\\installer\\CustomActions\\CustomActions.csproj",
+        "projectUniqueName": "C:\\Projeto_AETHER_v1.1.0\\installer\\CustomActions\\CustomActions.csproj",
         "projectName": "CustomActions",
-        "projectPath": "C:\\Projeto_AETHER_v1.1.1\\installer\\CustomActions\\CustomActions.csproj",
+        "projectPath": "C:\\Projeto_AETHER_v1.1.0\\installer\\CustomActions\\CustomActions.csproj",
         "packagesPath": "C:\\Users\\Robert.De Luca\\.nuget\\packages\\",
-        "outputPath": "C:\\Projeto_AETHER_v1.1.1\\installer\\CustomActions\\obj\\",
+        "outputPath": "C:\\Projeto_AETHER_v1.1.0\\installer\\CustomActions\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Robert.De Luca\\AppData\\Roaming\\NuGet\\NuGet.Config"

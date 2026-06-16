@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "77kymm9AZa8=",
+  "dgSpecHash": "vnHn8bMjJww=",
   "success": false,
-  "projectFilePath": "C:\\Projeto_AETHER_v1.1.1\\installer\\CustomActions\\CustomActions.csproj",
+  "projectFilePath": "C:\\Projeto_AETHER_v1.1.0\\installer\\CustomActions\\CustomActions.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Robert.De Luca\\.nuget\\packages\\microsoft.netcore.app.ref\\8.0.25\\microsoft.netcore.app.ref.8.0.25.nupkg.sha512",
     "C:\\Users\\Robert.De Luca\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\8.0.25\\microsoft.windowsdesktop.app.ref.8.0.25.nupkg.sha512",
@@ -13,8 +13,8 @@
       "code": "NU1101",
       "level": "Error",
       "message": "Não é possível encontrar o pacote Microsoft.Deployment.WindowsInstaller. Não existe nenhum pacote com esta ID nas origens: nuget.org",
-      "projectPath": "C:\\Projeto_AETHER_v1.1.1\\installer\\CustomActions\\CustomActions.csproj",
-      "filePath": "C:\\Projeto_AETHER_v1.1.1\\installer\\CustomActions\\CustomActions.csproj",
+      "projectPath": "C:\\Projeto_AETHER_v1.1.0\\installer\\CustomActions\\CustomActions.csproj",
+      "filePath": "C:\\Projeto_AETHER_v1.1.0\\installer\\CustomActions\\CustomActions.csproj",
       "libraryId": "Microsoft.Deployment.WindowsInstaller",
       "targetGraphs": [
         "net8.0"

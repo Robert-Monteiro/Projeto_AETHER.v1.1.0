@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useMemo } from 'react';
 import {
   Box,
   Grid,
@@ -72,19 +72,34 @@ const Dashboard = () => {
   const { assets } = useSelector(state => state.assets);
   const { tickets } = useSelector(state => state.tickets);
 
+  const ticketsRefreshRef = useRef(null);
+
   useEffect(() => {
     dispatch(fetchAssets());
     dispatch(fetchTickets());
+
+    ticketsRefreshRef.current = setInterval(() => {
+      dispatch(fetchTickets());
+    }, 15000);
+
+    return () => clearInterval(ticketsRefreshRef.current);
   }, [dispatch]);
 
   // Calculate stats
   const totalAssets = assets.length;
   const activeAssets = assets.filter(asset => asset.status === 'active').length;
   const openTickets = tickets.filter(ticket => ticket.status === 'open').length;
+  const resolvedTickets = tickets.filter(ticket => ticket.status === 'resolved' || ticket.status === 'closed').length;
   const pendingTickets = tickets.filter(ticket => ticket.status === 'pending' || ticket.status === 'awaiting').length;
   const now = new Date();
   const dueToday = tickets.filter(t => t.dueDate && new Date(t.dueDate).toDateString() === now.toDateString()).length;
   const overdue = tickets.filter(t => t.dueDate && new Date(t.dueDate) < now).length;
+  const moreThan7DaysTickets = tickets.filter(ticket => {
+    const ticketDate = ticket.createdAt ? new Date(ticket.createdAt) : null;
+    if (!ticketDate) return false;
+    const daysOpen = Math.floor((now - ticketDate) / (1000 * 60 * 60 * 24));
+    return daysOpen > 7 && ticket.status !== 'closed' && ticket.status !== 'resolved';
+  }).length;
   const highPriorityTickets = tickets.filter(ticket => ticket.priority === 'high' || ticket.priority === 'urgent').length;
 
   // Asset types chart
@@ -108,14 +123,25 @@ const Dashboard = () => {
     return acc;
   }, {});
 
-  const ticketStatusData = {
+  const ticketStatusData = useMemo(() => ({
     labels: Object.keys(ticketStatuses),
     datasets: [{
       label: 'Tickets by Status',
       data: Object.values(ticketStatuses),
       backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF'],
+      borderRadius: 6,
+      maxBarThickness: 32,
     }],
-  };
+  }), [ticketStatuses]);
+
+  const ticketStatusOptions = useMemo(() => ({
+    responsive: true,
+    maintainAspectRatio: false,
+    animation: false,
+    plugins: { legend: { position: 'bottom' } },
+    scales: { y: { beginAtZero: true } },
+    elements: { bar: { borderRadius: 6, barPercentage: 0.7, categoryPercentage: 0.8 } },
+  }), []);
 
   // Activity/Ingress Chart Data (last 7 days) - Cálculo em tempo real
   const last7Days = Array.from({ length: 7 }, (_, i) => {
@@ -178,27 +204,65 @@ const Dashboard = () => {
           label: 'Aberto',
           data: activityByDay.map(d => d.opened),
           backgroundColor: '#1976d2',
+          borderRadius: 6,
+          maxBarThickness: 28,
         },
         {
           label: 'Resolvido',
           data: activityByDay.map(d => d.resolved),
           backgroundColor: '#4caf50',
+          borderRadius: 6,
+          maxBarThickness: 28,
         },
         {
           label: 'Em atraso',
           data: activityByDay.map(d => d.overdue),
           backgroundColor: '#f44336',
+          borderRadius: 6,
+          maxBarThickness: 28,
         },
         {
           label: 'Mais de 7 dias',
           data: activityByDay.map(d => d.moreThan7Days),
           backgroundColor: '#ff9800',
+          borderRadius: 6,
+          maxBarThickness: 28,
         },
       ],
     };
   };
 
-  const activityData = calculateActivityData();
+  const activityData = useMemo(() => calculateActivityData(), [tickets, now]);
+
+  const activityOptions = useMemo(() => ({
+    responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      x: {
+        stacked: false,
+        grid: { display: false },
+      },
+      y: {
+        stacked: false,
+        beginAtZero: true,
+        ticks: { precision: 0 },
+      },
+    },
+    plugins: {
+      title: {
+        display: false,
+      },
+      legend: {
+        position: 'bottom',
+      },
+    },
+    interaction: {
+      mode: 'index',
+      intersect: false,
+    },
+    animation: false,
+    elements: { bar: { borderRadius: 6, barPercentage: 0.7, categoryPercentage: 0.8 } },
+  }), []);
 
   // SLA Statistics (average times)
   const slaStats = {
@@ -352,18 +416,28 @@ const Dashboard = () => {
             <Typography variant="h6" gutterBottom>
               Status do servidor por categoria de alerta
             </Typography>
-            <Bar data={ticketStatusData} />
+            <Box sx={{ height: 220 }}>
+              <Bar data={ticketStatusData} options={ticketStatusOptions} redraw />
+            </Box>
           </Paper>
         </Grid>
 
         {/* New Charts Section */}
         {/* Activity Chart */}
-        <Grid item xs={12}>
-          <Paper sx={{ p: 2 }}>
+        <Grid item xs={12} md={6}>
+          <Paper sx={{ p: 2, minHeight: 340 }}>
             <Typography variant="h6" gutterBottom>
-              Atividade de ingressos
+              Atividade de Atendimentos
             </Typography>
-            <Bar data={activityData} options={{ responsive: true, indexAxis: undefined }} />
+              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 2 }}>
+                <Chip label={`Aberto ${openTickets}`} color="primary" size="small" />
+                <Chip label={`Resolvido ${resolvedTickets}`} color="success" size="small" />
+                <Chip label={`Em atraso ${overdue}`} color="error" size="small" />
+                <Chip label={`Mais de 7 dias ${moreThan7DaysTickets}`} color="warning" size="small" />
+              </Box>
+            <Box sx={{ height: 320 }}>
+              <Bar data={activityData} options={activityOptions} redraw />
+            </Box>
           </Paper>
         </Grid>
 
