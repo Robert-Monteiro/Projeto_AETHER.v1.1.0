@@ -72,6 +72,9 @@ CREATE TABLE IF NOT EXISTS tickets (
   rustdesk_id VARCHAR(255),
   resolution TEXT,
   due_date DATE,
+  assigned_at TIMESTAMP WITH TIME ZONE,
+  first_response_at TIMESTAMP WITH TIME ZONE,
+  resolved_at TIMESTAMP WITH TIME ZONE,
   created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
 );
@@ -80,6 +83,11 @@ CREATE INDEX IF NOT EXISTS idx_tickets_status ON tickets(status);
 CREATE INDEX IF NOT EXISTS idx_tickets_priority ON tickets(priority);
 CREATE INDEX IF NOT EXISTS idx_tickets_assigned_to ON tickets(assigned_to);
 CREATE INDEX IF NOT EXISTS idx_tickets_asset_id ON tickets(asset_id);
+
+ALTER TABLE IF EXISTS tickets
+  ADD COLUMN IF NOT EXISTS assigned_at TIMESTAMP WITH TIME ZONE,
+  ADD COLUMN IF NOT EXISTS first_response_at TIMESTAMP WITH TIME ZONE,
+  ADD COLUMN IF NOT EXISTS resolved_at TIMESTAMP WITH TIME ZONE;
 
 -- Asset lifecycle history and audit trail
 CREATE TABLE IF NOT EXISTS asset_history (
@@ -109,6 +117,46 @@ CREATE TABLE IF NOT EXISTS install_requests (
 
 CREATE INDEX IF NOT EXISTS idx_install_requests_status ON install_requests(request_status);
 CREATE INDEX IF NOT EXISTS idx_install_requests_requested_by ON install_requests(requested_by);
+
+-- Device inventory data for dashboard availability
+CREATE TABLE IF NOT EXISTS devices (
+  id BIGSERIAL PRIMARY KEY,
+  hostname VARCHAR(255) NOT NULL UNIQUE,
+  category VARCHAR(50) NOT NULL DEFAULT 'PC',
+  online BOOLEAN NOT NULL DEFAULT FALSE,
+  status VARCHAR(50) NOT NULL DEFAULT 'offline',
+  site VARCHAR(100),
+  ip VARCHAR(50),
+  alert_level VARCHAR(50) NOT NULL DEFAULT 'normal',
+  additional_info JSONB,
+  last_seen TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+  created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS idx_devices_category ON devices(category);
+CREATE INDEX IF NOT EXISTS idx_devices_online ON devices(online);
+CREATE INDEX IF NOT EXISTS idx_devices_site ON devices(site);
+
+-- Alerts and events for dashboard metrics
+CREATE TABLE IF NOT EXISTS alerts (
+  id BIGSERIAL PRIMARY KEY,
+  title VARCHAR(255),
+  description TEXT,
+  level VARCHAR(50) NOT NULL DEFAULT 'warning',
+  category VARCHAR(100) NOT NULL DEFAULT 'Servidor',
+  site VARCHAR(100),
+  ticket_id BIGINT REFERENCES tickets(id) ON DELETE SET NULL,
+  device_id BIGINT REFERENCES devices(id) ON DELETE SET NULL,
+  status VARCHAR(50) NOT NULL DEFAULT 'active',
+  created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS idx_alerts_level ON alerts(level);
+CREATE INDEX IF NOT EXISTS idx_alerts_status ON alerts(status);
+CREATE INDEX IF NOT EXISTS idx_alerts_site ON alerts(site);
+CREATE INDEX IF NOT EXISTS idx_alerts_category ON alerts(category);
 
 -- Compliance monitoring and audit records
 CREATE TABLE IF NOT EXISTS compliance_checks (

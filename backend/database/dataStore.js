@@ -9,11 +9,13 @@ class DataStore {
     this.assetHistory = [];
     this.installRequests = [];
     this.devices = [];
+    this.alerts = [];
     this.nextUserId = 1;
     this.nextAssetId = 1;
     this.nextTicketId = 1;
     this.nextInstallId = 1;
     this.nextDeviceId = 1;
+    this.nextAlertId = 1;
   }
 
   // Users
@@ -58,16 +60,46 @@ class DataStore {
     });
 
     if (this.tickets.length === 0) {
-      this.addTicket({
-        title: 'Chamado de exemplo para TI',
-        description: 'Este chamado foi criado automaticamente para a fila de atendimento da TI.',
-        priority: 'medium',
-        category: 'Suporte',
-        assignedTo: adminUser.id,
-        userName: 'Usuário Exemplo',
-        summary: 'Suporte técnico',
-        ip: '0.0.0.0',
-        anydeskCode: '000-000-000',
+      // Removido os tickets de teste padrão para manter apenas dados reais.
+    }
+
+    if (this.devices.length === 0) {
+      this.addOrUpdateDevice({
+        hostname: 'SRV-01',
+        category: 'server',
+        online: true,
+        status: 'online',
+        site: 'Data Center',
+        ip: '10.0.0.10',
+        alert_level: 'normal',
+      });
+      this.addOrUpdateDevice({
+        hostname: 'PC-02',
+        category: 'pc',
+        online: false,
+        status: 'offline',
+        site: 'Sede',
+        ip: '10.0.1.22',
+        alert_level: 'warning',
+      });
+    }
+
+    if (this.alerts.length === 0) {
+      this.addAlert({
+        title: 'CPU elevada no servidor',
+        description: 'Uso de CPU acima de 90% no servidor principal.',
+        level: 'critical',
+        category: 'Servidor',
+        site: 'Data Center',
+        status: 'active',
+      });
+      this.addAlert({
+        title: 'Atualização pendente',
+        description: 'Estação de trabalho aguarda patch de segurança.',
+        level: 'warning',
+        category: 'Segurança',
+        site: 'Sede',
+        status: 'active',
       });
     }
   }
@@ -139,6 +171,22 @@ class DataStore {
 
   getInstallRequests() {
     return [...this.installRequests];
+  }
+
+  addAlert(alertData) {
+    const alert = {
+      id: this.nextAlertId++,
+      ...alertData,
+      status: alertData.status || 'active',
+      created_at: new Date(),
+      updated_at: new Date(),
+    };
+    this.alerts.push(alert);
+    return alert;
+  }
+
+  getAllAlerts() {
+    return [...this.alerts];
   }
 
   addOrUpdateDevice(deviceData) {

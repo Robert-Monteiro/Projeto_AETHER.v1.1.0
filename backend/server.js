@@ -19,6 +19,7 @@ const ticketRoutes = require('./routes/tickets');
 const assetRoutes = require('./routes/assets');
 const agentRoutes = require('./routes/agent');
 const deviceRoutes = require('./routes/devices');
+const dashboardRoutes = require('./routes/dashboard');
 
 // Import database connection
 const { connectDB } = require('./database/connection');
@@ -64,6 +65,7 @@ app.use('/api/tickets', ticketRoutes);
 app.use('/api/assets', assetRoutes);
 app.use('/api/devices', deviceRoutes);
 app.use('/api/agent', agentRoutes);
+app.use('/api/dashboard', dashboardRoutes);
 
 // Health check
 app.get('/health', (req, res) => {
