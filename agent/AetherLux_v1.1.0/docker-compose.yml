@@ -1,0 +1,38 @@
+version: '3.9'
+services:
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: aetherlux
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+
+  redis:
+    image: redis:7
+    command: ["redis-server", "--save", "60", "1", "--appendonly", "yes"]
+    ports:
+      - 6379:6379
+
+  aetherlux-api:
+    build:
+      context: ./src/AetherLux.Api
+      dockerfile: Dockerfile
+    depends_on:
+      - postgres
+      - redis
+    environment:
+      - ASPNETCORE_URLS=https://+:5001
+      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=aetherlux;Username=postgres;Password=postgres
+      - JwtSettings__Secret=ReplaceWithStrongSecretKeyForProduction123!
+      - JwtSettings__Issuer=AetherLux
+      - JwtSettings__Audience=AetherLuxClients
+    ports:
+      - 5001:5001
+    volumes:
+      - ./src/AetherLux.Api:/app
+volumes:
+  postgres_data:

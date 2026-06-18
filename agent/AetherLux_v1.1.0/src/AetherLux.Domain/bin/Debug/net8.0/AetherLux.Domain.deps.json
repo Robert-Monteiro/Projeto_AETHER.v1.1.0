@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "AetherLux.Domain/1.0.0": {
+        "runtime": {
+          "AetherLux.Domain.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "AetherLux.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

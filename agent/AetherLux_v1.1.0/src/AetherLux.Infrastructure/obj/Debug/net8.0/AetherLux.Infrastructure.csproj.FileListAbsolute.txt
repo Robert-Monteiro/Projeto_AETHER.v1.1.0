@@ -1,0 +1,16 @@
+C:\Projeto_AETHER_v1.1.0\agent\AetherLux_v1.1.0\src\AetherLux.Infrastructure\obj\Debug\net8.0\AetherLux.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projeto_AETHER_v1.1.0\agent\AetherLux_v1.1.0\src\AetherLux.Infrastructure\obj\Debug\net8.0\AetherLux.Infrastructure.AssemblyInfoInputs.cache
+C:\Projeto_AETHER_v1.1.0\agent\AetherLux_v1.1.0\src\AetherLux.Infrastructure\obj\Debug\net8.0\AetherLux.Infrastructure.AssemblyInfo.cs
+C:\Projeto_AETHER_v1.1.0\agent\AetherLux_v1.1.0\src\AetherLux.Infrastructure\obj\Debug\net8.0\AetherLux.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Projeto_AETHER_v1.1.0\agent\AetherLux_v1.1.0\src\AetherLux.Infrastructure\obj\Debug\net8.0\AetherLux.Infrastructure.sourcelink.json
+C:\Projeto_AETHER_v1.1.0\agent\AetherLux_v1.1.0\src\AetherLux.Infrastructure\bin\Debug\net8.0\AetherLux.Infrastructure.deps.json
+C:\Projeto_AETHER_v1.1.0\agent\AetherLux_v1.1.0\src\AetherLux.Infrastructure\bin\Debug\net8.0\AetherLux.Infrastructure.dll
+C:\Projeto_AETHER_v1.1.0\agent\AetherLux_v1.1.0\src\AetherLux.Infrastructure\bin\Debug\net8.0\AetherLux.Infrastructure.pdb
+C:\Projeto_AETHER_v1.1.0\agent\AetherLux_v1.1.0\src\AetherLux.Infrastructure\bin\Debug\net8.0\AetherLux.Domain.dll
+C:\Projeto_AETHER_v1.1.0\agent\AetherLux_v1.1.0\src\AetherLux.Infrastructure\bin\Debug\net8.0\AetherLux.Domain.pdb
+C:\Projeto_AETHER_v1.1.0\agent\AetherLux_v1.1.0\src\AetherLux.Infrastructure\obj\Debug\net8.0\AetherLux.Infrastructure.csproj.AssemblyReference.cache
+C:\Projeto_AETHER_v1.1.0\agent\AetherLux_v1.1.0\src\AetherLux.Infrastructure\obj\Debug\net8.0\AetherLu.A74815E4.Up2Date
+C:\Projeto_AETHER_v1.1.0\agent\AetherLux_v1.1.0\src\AetherLux.Infrastructure\obj\Debug\net8.0\AetherLux.Infrastructure.dll
+C:\Projeto_AETHER_v1.1.0\agent\AetherLux_v1.1.0\src\AetherLux.Infrastructure\obj\Debug\net8.0\refint\AetherLux.Infrastructure.dll
+C:\Projeto_AETHER_v1.1.0\agent\AetherLux_v1.1.0\src\AetherLux.Infrastructure\obj\Debug\net8.0\AetherLux.Infrastructure.pdb
+C:\Projeto_AETHER_v1.1.0\agent\AetherLux_v1.1.0\src\AetherLux.Infrastructure\obj\Debug\net8.0\ref\AetherLux.Infrastructure.dll

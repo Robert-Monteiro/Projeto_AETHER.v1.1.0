@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/AetherLux.Agent/AetherLux.Agent.csproj" />
+    <Project Path="src/AetherLux.Api/AetherLux.Api.csproj" />
+    <Project Path="src/AetherLux.Application/AetherLux.Application.csproj" />
+    <Project Path="src/AetherLux.Domain/AetherLux.Domain.csproj" />
+    <Project Path="src/AetherLux.Infrastructure/AetherLux.Infrastructure.csproj" />
+  </Folder>
+</Solution>

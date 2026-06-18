@@ -1,0 +1,12 @@
+C:\Projeto_AETHER_v1.1.0\agent\AetherLux_v1.1.0\src\AetherLux.Domain\bin\Debug\net8.0\AetherLux.Domain.deps.json
+C:\Projeto_AETHER_v1.1.0\agent\AetherLux_v1.1.0\src\AetherLux.Domain\bin\Debug\net8.0\AetherLux.Domain.dll
+C:\Projeto_AETHER_v1.1.0\agent\AetherLux_v1.1.0\src\AetherLux.Domain\bin\Debug\net8.0\AetherLux.Domain.pdb
+C:\Projeto_AETHER_v1.1.0\agent\AetherLux_v1.1.0\src\AetherLux.Domain\obj\Debug\net8.0\AetherLux.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projeto_AETHER_v1.1.0\agent\AetherLux_v1.1.0\src\AetherLux.Domain\obj\Debug\net8.0\AetherLux.Domain.AssemblyInfoInputs.cache
+C:\Projeto_AETHER_v1.1.0\agent\AetherLux_v1.1.0\src\AetherLux.Domain\obj\Debug\net8.0\AetherLux.Domain.AssemblyInfo.cs
+C:\Projeto_AETHER_v1.1.0\agent\AetherLux_v1.1.0\src\AetherLux.Domain\obj\Debug\net8.0\AetherLux.Domain.csproj.CoreCompileInputs.cache
+C:\Projeto_AETHER_v1.1.0\agent\AetherLux_v1.1.0\src\AetherLux.Domain\obj\Debug\net8.0\AetherLux.Domain.sourcelink.json
+C:\Projeto_AETHER_v1.1.0\agent\AetherLux_v1.1.0\src\AetherLux.Domain\obj\Debug\net8.0\AetherLux.Domain.dll
+C:\Projeto_AETHER_v1.1.0\agent\AetherLux_v1.1.0\src\AetherLux.Domain\obj\Debug\net8.0\refint\AetherLux.Domain.dll
+C:\Projeto_AETHER_v1.1.0\agent\AetherLux_v1.1.0\src\AetherLux.Domain\obj\Debug\net8.0\AetherLux.Domain.pdb
+C:\Projeto_AETHER_v1.1.0\agent\AetherLux_v1.1.0\src\AetherLux.Domain\obj\Debug\net8.0\ref\AetherLux.Domain.dll

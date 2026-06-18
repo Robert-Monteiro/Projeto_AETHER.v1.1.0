@@ -58,14 +58,26 @@ const Navbar = () => {
     setAnchorEl(null);
   };
 
-  const handleInstallAgent = () => {
-    const url = installAgent();
-    const link = document.createElement('a');
-    link.href = url;
-    link.setAttribute('download', 'LuxAgent.msi');
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+  const handleInstallAgent = async () => {
+    try {
+      const payload = { CompanyId: user?.companyId || 0, TenantId: user?.tenantId || 0 };
+      // ensure auth header
+      const token = localStorage.getItem('token');
+      if (token) api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      const res = await api.post('/installer/generate', payload);
+      const download = res.data.download;
+      const url = download.startsWith('http') ? download : `${window.location.origin}${download}`;
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'AetherLuxSetup.zip');
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      setSnackbar({ open: true, message: 'Instalador gerado e download iniciado.', severity: 'success' });
+    } catch (err) {
+      console.error(err);
+      setSnackbar({ open: true, message: 'Falha ao gerar instalador.', severity: 'error' });
+    }
   };
 
   return (

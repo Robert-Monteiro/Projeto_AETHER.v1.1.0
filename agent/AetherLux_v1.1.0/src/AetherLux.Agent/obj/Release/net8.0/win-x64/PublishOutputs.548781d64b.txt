@@ -1,0 +1,4 @@
+C:\Projeto_AETHER_v1.1.0\agent\AetherLux_v1.1.0\publish\AetherLux.Agent.win-x64\appsettings.Development.json
+C:\Projeto_AETHER_v1.1.0\agent\AetherLux_v1.1.0\publish\AetherLux.Agent.win-x64\appsettings.json
+C:\Projeto_AETHER_v1.1.0\agent\AetherLux_v1.1.0\publish\AetherLux.Agent.win-x64\AetherLux.Agent.pdb
+C:\Projeto_AETHER_v1.1.0\agent\AetherLux_v1.1.0\publish\AetherLux.Agent.win-x64\AetherLux.Agent.exe

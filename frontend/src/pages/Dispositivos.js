@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import * as signalR from '@microsoft/signalr';
+import api from '../api';
 import {
   Box,
   Typography,
@@ -58,6 +60,42 @@ const Dispositivos = () => {
       acessoRemoto: [],
     },
   ]);
+
+  useEffect(() => {
+    const loadDevices = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        if (token) api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        const res = await api.get('/devices');
+        setDispositivos(res.data);
+      } catch (err) {
+        console.error('Failed to load devices', err);
+      }
+    };
+
+    loadDevices();
+
+    // SignalR connection
+    const token = localStorage.getItem('token');
+    const connection = new signalR.HubConnectionBuilder()
+      .withUrl('/agenthub', { accessTokenFactory: () => token || '' })
+      .withAutomaticReconnect()
+      .build();
+
+    connection.start().then(() => console.log('SignalR connected')).catch(() => {});
+
+    connection.on('AgentRegistered', (device) => {
+      setDispositivos(prev => {
+        // avoid duplicates
+        if (prev.some(d => d.id === device.Id)) return prev;
+        return [device, ...prev];
+      });
+    });
+
+    return () => {
+      connection.stop().catch(() => {});
+    };
+  }, []);
 
   const [viewMode, setViewMode] = useState('tabela');
   const [searchText, setSearchText] = useState('');
